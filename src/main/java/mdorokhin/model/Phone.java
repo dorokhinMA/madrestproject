@@ -1,30 +1,36 @@
 package mdorokhin.model;
 
+import javax.persistence.*;
+
 /**
  * @author Maxim Dorokhin
  *         03.07.2017
  */
-public class Phone {
 
-    private Integer id;
+@Entity
+@Table
+//@NamedQueries()
+public class Phone extends BaseEntity {
+
+    @Column
     private String number;
+
+    @ManyToOne
+    @JoinColumn
     private Person person;
 
     public Phone() {
     }
 
-    public Phone(Integer id, String number, Person person) {
-        this.id = id;
+    public Phone(String number, Person person) {
         this.number = number;
         this.person = person;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Phone(Integer id, String number, Person person) {
+        super(id);
+        this.number = number;
+        this.person = person;
     }
 
     public String getNumber() {
@@ -41,5 +47,14 @@ public class Phone {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "number='" + number + '\'' +
+                ", person=" + person +
+                ", id=" + id +
+                '}';
     }
 }

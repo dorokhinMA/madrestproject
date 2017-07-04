@@ -18,7 +18,7 @@ public class BaseEntity {
     public BaseEntity() {
     }
 
-    public BaseEntity(Integer id) {
+    protected BaseEntity(Integer id) {
         this.id = id;
     }
 

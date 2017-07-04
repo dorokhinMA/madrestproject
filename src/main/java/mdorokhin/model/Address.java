@@ -1,32 +1,36 @@
 package mdorokhin.model;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * @author Maxim Dorokhin
  *         03.07.2017
  */
-public class Address {
 
-    private Integer id;
+@Entity
+@Table
+//@NamedQueries()
+public class Address extends BaseEntity {
+
+    @Column
     private String address;
+
+    @OneToMany
     private List<Person> persons;
 
     public Address() {
     }
 
-    public Address(Integer id, String address, List<Person> persons) {
-        this.id = id;
+    public Address(String address, List<Person> persons) {
         this.address = address;
         this.persons = persons;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Address(Integer id, String address, List<Person> persons) {
+        super(id);
+        this.address = address;
+        this.persons = persons;
     }
 
     public String getAddress() {
@@ -43,5 +47,14 @@ public class Address {
 
     public void setPersons(List<Person> persons) {
         this.persons = persons;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "address='" + address + '\'' +
+                ", id=" + id +
+                ", persons=" + persons +
+                '}';
     }
 }

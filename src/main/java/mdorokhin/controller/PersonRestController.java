@@ -4,6 +4,7 @@ import mdorokhin.model.Person;
 import mdorokhin.service.AddressService;
 import mdorokhin.service.PersonService;
 import mdorokhin.service.PhoneService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -17,8 +18,13 @@ import java.util.List;
 @Path("/person")
 public class PersonRestController {
 
+    @Autowired
     private AddressService addressService;
+
+    @Autowired
     private PhoneService phoneService;
+
+    @Autowired
     private PersonService personService;
 
 
