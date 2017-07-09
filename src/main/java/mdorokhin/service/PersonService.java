@@ -1,6 +1,5 @@
 package mdorokhin.service;
 
-import mdorokhin.model.Address;
 import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
 
@@ -14,7 +13,7 @@ public interface PersonService {
 
     Person save(Person person);
 
-    boolean remove(Integer id);
+    void remove(Integer id);
 
     Person getById(Integer id);
 
@@ -22,7 +21,7 @@ public interface PersonService {
 
     Person getByFio(String fio);
 
-    void update(Person person);
+    Person update(Person person);
 
-    List<Address> getAll();
+    List<Person> getAll();
 }

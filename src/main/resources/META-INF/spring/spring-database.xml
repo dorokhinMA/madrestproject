@@ -4,7 +4,7 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/context
@@ -13,13 +13,9 @@
          http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
          http://www.springframework.org/schema/tx
          http://www.springframework.org/schema/tx/spring-tx.xsd
-         http://www.springframework.org/schema/data/jpa
-         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
          http://www.springframework.org/schema/jee
          http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-
-    <context:component-scan base-package="mdorokhin.**.repository"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
@@ -41,33 +37,45 @@
                 <prop key="hibernate.jdbc.batch_size">10</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hbm2ddl.auto">validate</prop>
-                <!--<prop key="current_session_context_class">thread</prop>-->
+                <prop key="current_session_context_class">thread</prop>
             </props>
         </property>
     </bean>
 
-
-    <beans profile="mysql">
     <context:property-placeholder location="classpath:database/mysql/mysql.properties" system-properties-mode="OVERRIDE"/>
 
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           p:driverClassName="${driver}"
           p:url="${host}"
           p:username="${user}"
           p:password="${password}"/>
-    </beans>
 
-    <beans profile="tomcat">
-        <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/library"/>
-    </beans>
+    <!--&lt;!&ndash;MySQL&ndash;&gt;-->
+    <!--<beans profile="mysql">-->
+    <!--<context:property-placeholder location="classpath:database/mysql/mysql.properties" system-properties-mode="OVERRIDE"/>-->
 
-    <beans profile="h2">
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+          <!--p:driverClassName="${driver}"-->
+          <!--p:url="${host}"-->
+          <!--p:username="${user}"-->
+          <!--p:password="${password}"/>-->
+    <!--</beans>-->
 
-    <jdbc:embedded-database id="dataSource" type="H2">
-        <jdbc:script location="classpath:database/h2/schema.sql"/>
-        <jdbc:script location="classpath:database/h2/test_data.sql"/>
-    </jdbc:embedded-database>
-    </beans>
+    <!--<beans profile="tomcat">-->
+        <!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/library"/>-->
+    <!--</beans>-->
+
+    <!--&lt;!&ndash;H2&ndash;&gt;-->
+    <!--<beans profile="h2">-->
+
+        <!--<context:property-placeholder location="classpath:database/h2/h2.properties" system-properties-mode="OVERRIDE"/>-->
+
+        <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+        <!--p:driverClassName="${driver}"-->
+        <!--p:url="${host}"-->
+        <!--p:username="${user}"-->
+        <!--p:password="${password}"/>-->
+    <!--</beans>-->
 
 
 </beans>

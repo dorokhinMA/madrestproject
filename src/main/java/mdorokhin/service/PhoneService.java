@@ -12,9 +12,11 @@ public interface PhoneService {
 
     Phone save(Phone phone);
 
-    boolean remove(Integer id);
+    void remove(Integer id);
 
     Phone getById(Integer id);
+
+    Phone getByNumber(String number);
 
     List<Phone> getAll();
 

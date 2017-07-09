@@ -15,5 +15,7 @@ public interface PhoneRepository {
 
     Phone getById(Integer id);
 
+    Phone getByNumber(String number);
+
     List<Phone> getAll();
 }

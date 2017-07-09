@@ -1,13 +1,17 @@
 package mdorokhin.controller;
 
+import mdorokhin.model.Address;
 import mdorokhin.model.Person;
+import mdorokhin.model.Phone;
 import mdorokhin.service.AddressService;
 import mdorokhin.service.PersonService;
 import mdorokhin.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,33 +20,38 @@ import java.util.List;
  */
 
 @Path("/person")
+@Controller
 public class PersonRestController {
 
-    @Autowired
-    private AddressService addressService;
+    private final AddressService addressService;
+
+    private final PhoneService phoneService;
+
+    private final PersonService personService;
 
     @Autowired
-    private PhoneService phoneService;
-
-    @Autowired
-    private PersonService personService;
-
+    public PersonRestController(AddressService addressService, PhoneService phoneService, PersonService personService) {
+        this.addressService = addressService;
+        this.phoneService = phoneService;
+        this.personService = personService;
+    }
 
 
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    public Person get(@PathParam("id") Integer id){
+    public Person get(@PathParam("id") Integer id) {
 
-        return null;
+        return new Person(id, "Dorokhin Maksim Alexandrovich", new Address(id, "Moscow", new ArrayList<>()), new ArrayList<>());
     }
+
 
     @GET
     @Path("/{fio}")
     @Produces("application/json")
     public Person getByFio(@PathParam("fio") String fio){
 
-        return null;
+        return personService.getByFio(fio);
     }
 
     @GET
@@ -50,16 +59,16 @@ public class PersonRestController {
     @Produces("application/json")
     public Person getByPhone(@PathParam("phone") String phone){
 
-        return null;
+        return personService.getByPhoneNumber(phoneService.getByNumber(phone));
     }
 
 
     @GET
-    @Path("/")
+    @Path("/all")
     @Produces("application/json")
     public List<Person> getAll(){
 
-        return null;
+        return personService.getAll();
     }
 
     @POST
@@ -68,7 +77,7 @@ public class PersonRestController {
     @Consumes("application/json")
     public Person create(Person person){
 
-        return null;
+        return personService.save(person);
     }
 
     @PUT
@@ -77,7 +86,7 @@ public class PersonRestController {
     @Consumes("application/json")
     public Person update(Person person){
 
-        return null;
+        return personService.update(person);
 
     }
 
@@ -85,10 +94,22 @@ public class PersonRestController {
     @Path("/{id}")
     public Response delete(@PathParam("id") Integer id){
 
+        personService.remove(id);
         return Response.status(200).build();
     }
 
 
+    public AddressService getAddressService() {
+        return addressService;
+    }
+
+    public PhoneService getPhoneService() {
+        return phoneService;
+    }
+
+    public PersonService getPersonService() {
+        return personService;
+    }
 
 
 }

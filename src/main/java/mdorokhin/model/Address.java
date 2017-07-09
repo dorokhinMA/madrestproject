@@ -9,14 +9,20 @@ import java.util.List;
  */
 
 @Entity
-@Table
-//@NamedQueries()
+@Table(name = "address")
+@NamedQueries({
+        @NamedQuery(name = Address.ALL, query = "SELECT a FROM Address a LEFT JOIN FETCH a.persons ORDER BY a.address"),
+        @NamedQuery(name = Address.REMOVE, query = "DELETE FROM Address a WHERE a.id=:id")
+})
 public class Address extends BaseEntity {
 
-    @Column
+    public static final String ALL = "Address.getAll";
+    public static final String REMOVE = "Address.remove";
+
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "address", fetch = FetchType.EAGER)
     private List<Person> persons;
 
     public Address() {

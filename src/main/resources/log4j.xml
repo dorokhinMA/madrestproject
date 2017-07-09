@@ -20,11 +20,16 @@
     </category>
 
     <category name="org.hibernate">
-        <priority value="info"/>
+        <priority value="debug"/>
         <appender-ref ref="consoleAppender"/>
     </category>
 
     <category name="org.jboss">
+        <priority value="info"/>
+        <appender-ref ref="consoleAppender"/>
+    </category>
+
+    <category name="org.jetty">
         <priority value="info"/>
         <appender-ref ref="consoleAppender"/>
     </category>

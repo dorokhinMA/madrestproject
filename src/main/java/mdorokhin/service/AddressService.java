@@ -12,7 +12,7 @@ public interface AddressService {
 
     Address save(Address address);
 
-    boolean remove(Integer id);
+    void remove(Integer id);
 
     Address getById(Integer id);
 

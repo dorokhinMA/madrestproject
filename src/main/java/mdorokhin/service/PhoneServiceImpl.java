@@ -24,21 +24,28 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public Phone save(Phone phone) {
-        return null;
+        phoneRepository.save(phone);
+        return phone;
     }
 
     @Override
-    public boolean remove(Integer id) {
-        return false;
+    public void remove(Integer id) {
+        phoneRepository.remove(id);
     }
 
     @Override
     public Phone getById(Integer id) {
-        return null;
+        return phoneRepository.getById(id);
     }
 
     @Override
+    public Phone getByNumber(String number) {
+        return phoneRepository.getByNumber(number);
+    }
+
+
+    @Override
     public List<Phone> getAll() {
-        return null;
+        return phoneRepository.getAll();
     }
 }

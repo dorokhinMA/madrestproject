@@ -7,6 +7,8 @@ import mdorokhin.repository.PersonRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -18,39 +20,44 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaPersonRepositoryImpl implements PersonRepository {
 
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
+    @Transactional
     public Person save(Person person) {
-        return null;
+
+        if (person.isNew()) {
+            em.persist(person);
+        } else {
+            em.merge(person);
+        }
+        return person;
     }
 
     @Override
     public boolean remove(Integer id) {
-        return false;
+        return em.createNamedQuery(Person.PERSON_REMOVE).setParameter("id", id).executeUpdate() != 0;
     }
 
     @Override
     public Person getById(Integer id) {
-        return null;
+        return em.find(Person.class, id);
     }
 
     @Override
     public Person getByPhoneNumber(Phone phone) {
-        return null;
+        return (Person) em.createNamedQuery(Person.PERSON_BY_PHONE).setParameter("phone", phone).getSingleResult();
     }
 
     @Override
     public Person getByFio(String fio) {
-        return null;
+        return (Person) em.createNamedQuery(Person.PERSON_BY_FIO).setParameter("phone", fio).getSingleResult();
     }
 
     @Override
-    public void update(Person person) {
-
+    public List<Person> getAll() {
+        return em.createNamedQuery(Person.PERSON_ALL, Person.class).getResultList();
     }
 
-    @Override
-    public List<Address> getAll() {
-        return null;
-    }
 }

@@ -5,6 +5,8 @@ import mdorokhin.repository.AddressRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -16,24 +18,36 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaAddressRepositoryImpl implements AddressRepository {
 
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
+    @Transactional
     public Address save(Address address) {
-        return null;
+
+        if (address.isNew()) {
+            em.persist(address);
+        } else {
+            em.merge(address);
+        }
+        return address;
     }
 
     @Override
+    @Transactional
     public boolean remove(Integer id) {
-        return false;
+        return em.createNamedQuery(Address.REMOVE).setParameter("id", id).executeUpdate() != 0;
     }
 
     @Override
     public Address getById(Integer id) {
-        return null;
+        return em.find(Address.class, id);
     }
 
     @Override
     public List<Address> getAll() {
-        return null;
+        List<Address> resultList = em.createNamedQuery(Address.ALL, Address.class).getResultList();
+        return resultList;
     }
+
 }

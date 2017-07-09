@@ -1,6 +1,5 @@
 package mdorokhin.repository;
 
-import mdorokhin.model.Address;
 import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
 
@@ -22,6 +21,6 @@ public interface PersonRepository {
 
     Person getByFio(String fio);
 
-    List<Address> getAll();
+    List<Person> getAll();
 }
 

@@ -1,6 +1,5 @@
 package mdorokhin.service;
 
-import mdorokhin.model.Address;
 import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
 import mdorokhin.repository.PersonRepository;
@@ -25,36 +24,37 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person save(Person person) {
-        return null;
+        personRepository.save(person);
+        return person;
     }
 
     @Override
-    public boolean remove(Integer id) {
-        return false;
+    public void remove(Integer id) {
+        personRepository.remove(id);
     }
 
     @Override
     public Person getById(Integer id) {
-        return null;
+        return personRepository.getById(id);
     }
 
     @Override
     public Person getByPhoneNumber(Phone phone) {
-        return null;
+        return personRepository.getByPhoneNumber(phone);
     }
 
     @Override
     public Person getByFio(String fio) {
-        return null;
+        return personRepository.getByFio(fio);
     }
 
     @Override
-    public void update(Person person) {
-
+    public Person update(Person person) {
+        return personRepository.save(person);
     }
 
     @Override
-    public List<Address> getAll() {
-        return null;
+    public List<Person> getAll() {
+        return personRepository.getAll();
     }
 }

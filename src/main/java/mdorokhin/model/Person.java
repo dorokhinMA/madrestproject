@@ -9,20 +9,31 @@ import java.util.List;
  */
 
 @Entity
-@Table
-//@NamedQueries()
+@Table(name = "persons")
+@NamedQueries({
+        @NamedQuery(name = Person.PERSON_GET, query = "SELECT p FROM Person p WHERE p.id=:id"),
+        @NamedQuery(name = Person.PERSON_REMOVE, query = "DELETE FROM Person p WHERE p.id=:id"),
+        @NamedQuery(name = Person.PERSON_BY_FIO, query = "SELECT p FROM Person p WHERE p.fio=:fio"),
+        @NamedQuery(name = Person.PERSON_BY_PHONE, query = "SELECT p FROM Person p WHERE p.id=:phone ORDER BY p.fio"),
+        @NamedQuery(name = Person.PERSON_ALL, query = "SELECT p FROM Person p ORDER BY p.fio"),
+})
 public class Person extends BaseEntity {
 
-    @Column
+    public static final String PERSON_GET = "Person.get";
+    public static final String PERSON_REMOVE = "Person.remove";
+    public static final String PERSON_BY_FIO = "Person.getByFio";
+    public static final String PERSON_BY_PHONE = "Person.byPhone";
+    public static final String PERSON_ALL = "Person.getAll";
+
+    @Column(name = "fio")
     private String fio;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "person", fetch = FetchType.EAGER)
     private List<Phone> phones;
-
 
     public Person() {
     }

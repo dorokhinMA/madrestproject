@@ -21,24 +21,25 @@ public class AddressServiceImpl implements AddressService {
         this.addressRepository = addressRepository;
     }
 
-
     @Override
     public Address save(Address address) {
-        return null;
+        addressRepository.save(address);
+        return address;
     }
 
     @Override
-    public boolean remove(Integer id) {
-        return false;
+    public void remove(Integer id) {
+        addressRepository.remove(id);
     }
 
     @Override
     public Address getById(Integer id) {
-        return null;
+        return addressRepository.getById(id);
     }
 
     @Override
     public List<Address> getAll() {
-        return null;
+        return addressRepository.getAll();
     }
+
 }

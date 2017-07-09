@@ -8,15 +8,21 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table
-//@NamedQueries()
+@Table(name = "phones")
+@NamedQueries({
+        @NamedQuery(name = Phone.ALL, query = "SELECT a FROM Phone a LEFT JOIN FETCH a.person ORDER BY a.person.fio"),
+        @NamedQuery(name = Phone.REMOVE, query = "DELETE FROM Phone a WHERE a.id=:id")
+})
 public class Phone extends BaseEntity {
 
-    @Column
+    public static final String ALL = "Phone.getAll";
+    public static final String REMOVE = "Phone.remove";
+
+    @Column(name = "number", unique = true)
     private String number;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 
     public Phone() {
