@@ -28,6 +28,15 @@ public class Address extends BaseEntity {
     public Address() {
     }
 
+    public Address(String address) {
+        this.address = address;
+    }
+
+    public Address(Integer id, String address) {
+        super(id);
+        this.address = address;
+    }
+
     public Address(String address, List<Person> persons) {
         this.address = address;
         this.persons = persons;

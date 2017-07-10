@@ -50,7 +50,6 @@ public class JpaPhoneRepositoryImpl implements PhoneRepository {
         return null;
     }
 
-
     @Override
     public List<Phone> getAll() {
         return em.createNamedQuery(Phone.ALL, Phone.class).getResultList();

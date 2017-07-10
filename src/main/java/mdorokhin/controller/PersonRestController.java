@@ -42,12 +42,12 @@ public class PersonRestController {
     @Produces("application/json")
     public Person get(@PathParam("id") Integer id) {
 
-        return new Person(id, "Dorokhin Maksim Alexandrovich", new Address(id, "Moscow", new ArrayList<>()), new ArrayList<>());
+        return personService.getById(id);
     }
 
 
     @GET
-    @Path("/{fio}")
+    @Path("fio/{fio}")
     @Produces("application/json")
     public Person getByFio(@PathParam("fio") String fio){
 
@@ -55,7 +55,7 @@ public class PersonRestController {
     }
 
     @GET
-    @Path("/{phone}")
+    @Path("phone/{phone}")
     @Produces("application/json")
     public Person getByPhone(@PathParam("phone") String phone){
 

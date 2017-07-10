@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "phones")
 @NamedQueries({
-        @NamedQuery(name = Phone.ALL, query = "SELECT a FROM Phone a LEFT JOIN FETCH a.person ORDER BY a.person.fio"),
+        @NamedQuery(name = Phone.ALL, query = "SELECT a FROM Phone a ORDER BY a.person.fio"),
         @NamedQuery(name = Phone.REMOVE, query = "DELETE FROM Phone a WHERE a.id=:id")
 })
 public class Phone extends BaseEntity {
