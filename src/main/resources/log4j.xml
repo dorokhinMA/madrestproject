@@ -20,7 +20,7 @@
     </category>
 
     <category name="org.hibernate">
-        <priority value="debug"/>
+        <priority value="info"/>
         <appender-ref ref="consoleAppender"/>
     </category>
 
@@ -33,6 +33,11 @@
         <priority value="info"/>
         <appender-ref ref="consoleAppender"/>
     </category>
+
+    <!--<category name="">-->
+        <!--<priority value="info"/>-->
+        <!--<appender-ref ref="consoleAppender"/>-->
+    <!--</category>-->
 
 
 

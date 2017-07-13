@@ -1,6 +1,7 @@
 package mdorokhin.service;
 
 import mdorokhin.model.Phone;
+import mdorokhin.utils.exeption.AppException;
 
 import java.util.List;
 
@@ -10,13 +11,13 @@ import java.util.List;
  */
 public interface PhoneService {
 
-    Phone save(Phone phone);
+    Phone save(Phone phone) throws AppException;
 
-    void remove(Integer id);
+    void remove(Integer id) throws AppException;
 
-    Phone getById(Integer id);
+    Phone getById(Integer id) throws AppException;
 
-    Phone getByNumber(String number);
+    Phone getByNumber(String number) throws AppException;
 
     List<Phone> getAll();
 

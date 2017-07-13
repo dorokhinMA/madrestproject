@@ -36,6 +36,7 @@ public class JpaPersonRepositoryImpl implements PersonRepository {
     }
 
     @Override
+    @Transactional
     public boolean remove(Integer id) {
         return em.createNamedQuery(Person.PERSON_REMOVE).setParameter("id", id).executeUpdate() != 0;
     }
@@ -52,7 +53,7 @@ public class JpaPersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Person getByFio(String fio) {
-        return (Person) em.createNamedQuery(Person.PERSON_BY_FIO).setParameter("phone", fio).getSingleResult();
+        return (Person) em.createNamedQuery(Person.PERSON_BY_FIO).setParameter("fio", fio).getSingleResult();
     }
 
     @Override

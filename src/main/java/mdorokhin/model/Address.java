@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "address")
 @NamedQueries({
-        @NamedQuery(name = Address.ALL, query = "SELECT a FROM Address a LEFT JOIN FETCH a.persons ORDER BY a.address"),
+        @NamedQuery(name = Address.ALL, query = "SELECT DISTINCT a FROM Address a LEFT JOIN FETCH a.persons ORDER BY a.address"),
         @NamedQuery(name = Address.REMOVE, query = "DELETE FROM Address a WHERE a.id=:id")
 })
 public class Address extends BaseEntity {
@@ -22,7 +22,7 @@ public class Address extends BaseEntity {
     @Column(name = "address", nullable = false, unique = true)
     private String address;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "address", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "address", fetch = FetchType.LAZY)
     private List<Person> persons;
 
     public Address() {
@@ -69,7 +69,6 @@ public class Address extends BaseEntity {
         return "Address{" +
                 "address='" + address + '\'' +
                 ", id=" + id +
-                ", persons=" + persons +
                 '}';
     }
 }

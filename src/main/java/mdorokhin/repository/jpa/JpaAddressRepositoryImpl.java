@@ -23,7 +23,7 @@ public class JpaAddressRepositoryImpl implements AddressRepository {
 
     @Override
     @Transactional
-    public Address save(Address address) { //+
+    public Address save(Address address) {
 
         if (address.isNew()) {
             em.persist(address);
@@ -36,18 +36,17 @@ public class JpaAddressRepositoryImpl implements AddressRepository {
     @Override
     @Transactional
     public boolean remove(Integer id) {
-        return em.createNamedQuery(Address.REMOVE).setParameter("id", id).executeUpdate() != 0;//+
+        return em.createNamedQuery(Address.REMOVE).setParameter("id", id).executeUpdate() != 0;
     }
 
     @Override
     public Address getById(Integer id) {
         return em.find(Address.class, id);
-    } //+
+    }
 
     @Override
     public List<Address> getAll() {
-        List<Address> resultList = em.createNamedQuery(Address.ALL, Address.class).getResultList();
-        return resultList;
+        return em.createNamedQuery(Address.ALL, Address.class).getResultList();
     }
 
 }

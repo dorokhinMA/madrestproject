@@ -25,14 +25,14 @@ public class Person extends BaseEntity {
     public static final String PERSON_BY_PHONE = "Person.byPhone";
     public static final String PERSON_ALL = "Person.getAll";
 
-    @Column(name = "fio")
+    @Column(name = "fio", unique = true)
     private String fio;
 
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "person", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "person", fetch = FetchType.LAZY)
     private List<Phone> phones;
 
     public Person() {
@@ -81,7 +81,6 @@ public class Person extends BaseEntity {
                 "fio='" + fio + '\'' +
                 ", id=" + id +
                 ", address=" + address +
-                ", phones=" + phones +
                 '}';
     }
 }

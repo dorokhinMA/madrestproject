@@ -47,7 +47,7 @@ public class JpaPhoneRepositoryImpl implements PhoneRepository {
 
     @Override
     public Phone getByNumber(String number) {
-        return null;
+        return (Phone) em.createNamedQuery(Phone.GET_BY_NUMBER).setParameter("number", number).getSingleResult();
     }
 
     @Override

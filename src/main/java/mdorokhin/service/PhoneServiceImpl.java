@@ -2,6 +2,7 @@ package mdorokhin.service;
 
 import mdorokhin.model.Phone;
 import mdorokhin.repository.PhoneRepository;
+import mdorokhin.utils.exeption.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +30,37 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public void remove(Integer id) {
-        phoneRepository.remove(id);
+    public void remove(Integer id) throws AppException {
+
+        if (!phoneRepository.remove(id)) {
+
+            throw new AppException("Can't remove phone with ID == " + id);
+        }
     }
 
     @Override
-    public Phone getById(Integer id) {
-        return phoneRepository.getById(id);
+    public Phone getById(Integer id) throws AppException {
+
+        Phone phone = phoneRepository.getById(id);
+
+        if (phone == null) {
+
+            throw new AppException("Phone with ID == " + id + " not found");
+        }
+        return phone;
     }
 
     @Override
-    public Phone getByNumber(String number) {
-        return phoneRepository.getByNumber(number);
+    public Phone getByNumber(String number) throws AppException {
+
+        Phone phone = phoneRepository.getByNumber(number);
+
+        if (phone == null) {
+
+            throw new AppException("Phone with ID == " + number + " not found");
+        }
+
+        return phone;
     }
 
 

@@ -10,15 +10,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "phones")
 @NamedQueries({
-        @NamedQuery(name = Phone.ALL, query = "SELECT a FROM Phone a ORDER BY a.person.fio"),
-        @NamedQuery(name = Phone.REMOVE, query = "DELETE FROM Phone a WHERE a.id=:id")
+        @NamedQuery(name = Phone.ALL, query = "SELECT DISTINCT a FROM Phone a ORDER BY a.person.fio"),
+        @NamedQuery(name = Phone.REMOVE, query = "DELETE FROM Phone a WHERE a.id=:id"),
+        @NamedQuery(name = Phone.GET_BY_NUMBER, query = "SELECT a FROM Phone a WHERE a.number=:number")
 })
 public class Phone extends BaseEntity {
 
     public static final String ALL = "Phone.getAll";
     public static final String REMOVE = "Phone.remove";
+    public static final String GET_BY_NUMBER = "Phone.getByNumber";
 
-    @Column(name = "number", unique = true)
+    @Column(name = "number", unique = true, nullable = false)
     private String number;
 
     @ManyToOne

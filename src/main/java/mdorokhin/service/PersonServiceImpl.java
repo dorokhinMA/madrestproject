@@ -3,6 +3,7 @@ package mdorokhin.service;
 import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
 import mdorokhin.repository.PersonRepository;
+import mdorokhin.utils.exeption.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,23 +30,50 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void remove(Integer id) {
-        personRepository.remove(id);
+    public void remove(Integer id) throws AppException {
+
+        if (!personRepository.remove(id)) {
+
+            throw new AppException("Can't remove person with ID == " + id);
+        }
     }
 
     @Override
-    public Person getById(Integer id) {
-        return personRepository.getById(id);
+    public Person getById(Integer id) throws AppException {
+
+        Person person = personRepository.getById(id);
+
+        if (person == null) {
+
+            throw new AppException("Person with ID == " + id + " not found");
+        }
+        return person;
     }
 
     @Override
-    public Person getByPhoneNumber(Phone phone) {
-        return personRepository.getByPhoneNumber(phone);
+    public Person getByPhoneNumber(Phone phone) throws AppException {
+
+        Person person = personRepository.getByPhoneNumber(phone);
+
+        if (person == null) {
+
+            throw new AppException("Person with phone == " + phone + " not found");
+        }
+
+        return person;
     }
 
     @Override
-    public Person getByFio(String fio) {
-        return personRepository.getByFio(fio);
+    public Person getByFio(String fio) throws AppException {
+
+        Person  person = personRepository.getByFio(fio);
+
+        if (person == null) {
+
+            throw new AppException("Person with Fio == " + fio + " not found");
+        }
+
+        return person;
     }
 
     @Override

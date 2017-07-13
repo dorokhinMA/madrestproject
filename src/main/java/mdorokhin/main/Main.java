@@ -2,7 +2,11 @@ package mdorokhin.main;
 
 
 import mdorokhin.model.Address;
+import mdorokhin.model.Person;
+import mdorokhin.model.Phone;
 import mdorokhin.repository.AddressRepository;
+import mdorokhin.repository.PersonRepository;
+import mdorokhin.repository.PhoneRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -20,10 +24,32 @@ public class Main {
 
         AddressRepository jpaAddressRepositoryImpl = context.getBean("jpaAddressRepositoryImpl", AddressRepository.class);
 
-        List<Address> all = jpaAddressRepositoryImpl.getAll();
+        jpaAddressRepositoryImpl.save(new Address("Kazan"));
+        jpaAddressRepositoryImpl.save(new Address("Sochi"));
+        jpaAddressRepositoryImpl.save(new Address("Tver"));
+//        List<Address> all = jpaAddressRepositoryImpl.getAll();
+//
+//        Address byId = jpaAddressRepositoryImpl.getById(1);
+//        System.out.println(byId);
+//        List<Person> persons = byId.getPersons();
+//        System.out.println(persons);
+//        // System.out.println(all);
 
-        System.out.println(all);
+//        PhoneRepository jpaPhoneRepositoryImpl = context.getBean("jpaPhoneRepositoryImpl", PhoneRepository.class);
+//
+//        Phone byId = jpaPhoneRepositoryImpl.getByNumber("+7(800)-222-22-22");
+//        System.out.println(byId);
+
+
+//        PersonRepository jpaPersonRepositoryImpl = context.getBean("jpaPersonRepositoryImpl", PersonRepository.class);
+//
+//    //    System.out.println(jpaPersonRepositoryImpl.getById(2));
+//
+//        Person ivanov = jpaPersonRepositoryImpl.getByFio("Petrov Petr Petrovich");
+//        System.out.println(ivanov);
+
 
     }
+
 
 }

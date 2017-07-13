@@ -2,6 +2,7 @@ package mdorokhin.service;
 
 import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
+import mdorokhin.utils.exeption.AppException;
 
 import java.util.List;
 
@@ -11,17 +12,17 @@ import java.util.List;
  */
 public interface PersonService {
 
-    Person save(Person person);
+    Person save(Person person) throws AppException;
 
-    void remove(Integer id);
+    void remove(Integer id) throws AppException;
 
-    Person getById(Integer id);
+    Person getById(Integer id) throws AppException;
 
-    Person getByPhoneNumber(Phone phone);
+    Person getByPhoneNumber(Phone phone) throws AppException;
 
-    Person getByFio(String fio);
+    Person getByFio(String fio) throws AppException;
 
-    Person update(Person person);
+    Person update(Person person) throws AppException;
 
     List<Person> getAll();
 }

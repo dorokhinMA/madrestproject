@@ -2,6 +2,7 @@ package mdorokhin.service;
 
 import mdorokhin.model.Address;
 import mdorokhin.repository.AddressRepository;
+import mdorokhin.utils.exeption.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,23 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void remove(Integer id) {
-        addressRepository.remove(id);
+    public void remove(Integer id) throws AppException {
+
+        if (!addressRepository.remove(id)){
+            throw new AppException("Can't remove address with ID == " + id);
+        }
     }
 
     @Override
-    public Address getById(Integer id) {
-        return addressRepository.getById(id);
+    public Address getById(Integer id) throws AppException {
+
+        Address address = addressRepository.getById(id);
+
+        if (address == null){
+            throw new AppException("Address with ID == " + id + " not found");
+        }
+
+        return address ;
     }
 
     @Override

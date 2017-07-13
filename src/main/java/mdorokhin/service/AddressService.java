@@ -1,6 +1,7 @@
 package mdorokhin.service;
 
 import mdorokhin.model.Address;
+import mdorokhin.utils.exeption.AppException;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
  */
 public interface AddressService {
 
-    Address save(Address address);
+    Address save(Address address) throws AppException;
 
-    void remove(Integer id);
+    void remove(Integer id) throws AppException;
 
-    Address getById(Integer id);
+    Address getById(Integer id) throws AppException;
 
     List<Address> getAll();
 
