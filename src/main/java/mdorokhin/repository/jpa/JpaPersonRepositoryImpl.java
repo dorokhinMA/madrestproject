@@ -43,7 +43,7 @@ public class JpaPersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Person getById(Integer id) {
-        return em.find(Person.class, id);
+        return (Person) em.createNamedQuery(Person.PERSON_GET).setParameter("id", id).getSingleResult();
     }
 
     @Override

@@ -1,5 +1,9 @@
 package mdorokhin.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "persons")
 @NamedQueries({
-        @NamedQuery(name = Person.PERSON_GET, query = "SELECT p FROM Person p WHERE p.id=:id"),
+        @NamedQuery(name = Person.PERSON_GET, query = "SELECT p FROM Person p LEFT JOIN FETCH p.phones WHERE p.id=:id"),
         @NamedQuery(name = Person.PERSON_REMOVE, query = "DELETE FROM Person p WHERE p.id=:id"),
         @NamedQuery(name = Person.PERSON_BY_FIO, query = "SELECT p FROM Person p WHERE p.fio=:fio"),
         @NamedQuery(name = Person.PERSON_BY_PHONE, query = "SELECT p FROM Person p WHERE p.id=:phone ORDER BY p.fio"),
@@ -28,10 +32,12 @@ public class Person extends BaseEntity {
     @Column(name = "fio", unique = true)
     private String fio;
 
+
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "person", fetch = FetchType.LAZY)
     private List<Phone> phones;
 

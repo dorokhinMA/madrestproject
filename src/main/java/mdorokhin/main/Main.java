@@ -20,13 +20,16 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
+
         ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/spring-context.xml","META-INF/spring/spring-database.xml");
 
         AddressRepository jpaAddressRepositoryImpl = context.getBean("jpaAddressRepositoryImpl", AddressRepository.class);
 
-        jpaAddressRepositoryImpl.save(new Address("Kazan"));
-        jpaAddressRepositoryImpl.save(new Address("Sochi"));
-        jpaAddressRepositoryImpl.save(new Address("Tver"));
+//        System.out.println(jpaAddressRepositoryImpl.getAll());
+
+//        jpaAddressRepositoryImpl.save(new Address("Kazan"));
+//        jpaAddressRepositoryImpl.save(new Address("Sochi"));
+//        jpaAddressRepositoryImpl.save(new Address("Tver"));
 //        List<Address> all = jpaAddressRepositoryImpl.getAll();
 //
 //        Address byId = jpaAddressRepositoryImpl.getById(1);
@@ -37,16 +40,22 @@ public class Main {
 
 //        PhoneRepository jpaPhoneRepositoryImpl = context.getBean("jpaPhoneRepositoryImpl", PhoneRepository.class);
 //
+//        System.out.println(jpaPhoneRepositoryImpl.getAll());
 //        Phone byId = jpaPhoneRepositoryImpl.getByNumber("+7(800)-222-22-22");
 //        System.out.println(byId);
 
 
 //        PersonRepository jpaPersonRepositoryImpl = context.getBean("jpaPersonRepositoryImpl", PersonRepository.class);
 //
-//    //    System.out.println(jpaPersonRepositoryImpl.getById(2));
+//        System.out.println(jpaPersonRepositoryImpl.getById(2));
 //
 //        Person ivanov = jpaPersonRepositoryImpl.getByFio("Petrov Petr Petrovich");
 //        System.out.println(ivanov);
+
+//        PersonRepository jpaPersonRepositoryImpl = context.getBean("jpaPersonRepositoryImpl", PersonRepository.class);
+//
+//        Person byId = jpaPersonRepositoryImpl.getById(1);
+//        System.out.println(byId.getPhones());
 
 
     }

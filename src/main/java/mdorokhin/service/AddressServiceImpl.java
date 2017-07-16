@@ -31,21 +31,13 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void remove(Integer id) throws AppException {
 
-        if (!addressRepository.remove(id)){
-            throw new AppException("Can't remove address with ID == " + id);
-        }
+        addressRepository.remove(id);
     }
 
     @Override
     public Address getById(Integer id) throws AppException {
 
-        Address address = addressRepository.getById(id);
-
-        if (address == null){
-            throw new AppException("Address with ID == " + id + " not found");
-        }
-
-        return address ;
+        return addressRepository.getById(id);
     }
 
     @Override

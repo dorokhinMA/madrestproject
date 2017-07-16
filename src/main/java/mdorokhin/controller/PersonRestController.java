@@ -1,17 +1,14 @@
 package mdorokhin.controller;
 
-import mdorokhin.model.Address;
 import mdorokhin.model.Person;
-import mdorokhin.model.Phone;
 import mdorokhin.service.AddressService;
 import mdorokhin.service.PersonService;
 import mdorokhin.service.PhoneService;
+import mdorokhin.utils.exeption.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +37,7 @@ public class PersonRestController {
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    public Person get(@PathParam("id") Integer id) {
+    public Person get(@PathParam("id") Integer id) throws AppException {
 
         return personService.getById(id);
     }
@@ -49,7 +46,7 @@ public class PersonRestController {
     @GET
     @Path("fio/{fio}")
     @Produces("application/json")
-    public Person getByFio(@PathParam("fio") String fio){
+    public Person getByFio(@PathParam("fio") String fio) throws AppException {
 
         return personService.getByFio(fio);
     }
@@ -57,7 +54,7 @@ public class PersonRestController {
     @GET
     @Path("phone/{phone}")
     @Produces("application/json")
-    public Person getByPhone(@PathParam("phone") String phone){
+    public Person getByPhone(@PathParam("phone") String phone) throws AppException {
 
         return personService.getByPhoneNumber(phoneService.getByNumber(phone));
     }
@@ -75,7 +72,7 @@ public class PersonRestController {
     @Path("/add")
     @Produces("application/json")
     @Consumes("application/json")
-    public Person create(Person person){
+    public Person create(Person person) throws AppException {
 
         return personService.save(person);
     }
@@ -84,7 +81,7 @@ public class PersonRestController {
     @Path("/update")
     @Produces("application/json")
     @Consumes("application/json")
-    public Person update(Person person){
+    public Person update(Person person) throws AppException {
 
         return personService.update(person);
 
@@ -92,12 +89,11 @@ public class PersonRestController {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Integer id){
+    public Response delete(@PathParam("id") Integer id) throws AppException {
 
         personService.remove(id);
         return Response.status(200).build();
     }
-
 
     public AddressService getAddressService() {
         return addressService;

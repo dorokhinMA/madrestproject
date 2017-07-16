@@ -7,6 +7,7 @@ import mdorokhin.utils.exeption.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -24,7 +25,17 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person save(Person person) {
+    public Person save(Person person) throws AppException {
+
+        Person personByFio = personRepository.getByFio(person.getFio());
+
+        if(personByFio != null){
+
+            throw new AppException(Response.Status.CONFLICT.getStatusCode(), 409, //409
+                    "Person with fio already existing in the database with the id " + person.getId(),
+                    "Please verify that the fio are properly generated");
+        }
+
         personRepository.save(person);
         return person;
     }
@@ -32,9 +43,14 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void remove(Integer id) throws AppException {
 
-        if (!personRepository.remove(id)) {
+        final boolean remove = personRepository.remove(id);
 
-            throw new AppException("Can't remove person with ID == " + id);
+        if (!remove) {
+
+            throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
+                    404,
+                    "The person you requested with id " + id + " was not found in the database",
+                    "Verify the existence of the person with the id " + id + " in the database");
         }
     }
 
@@ -45,7 +61,10 @@ public class PersonServiceImpl implements PersonService {
 
         if (person == null) {
 
-            throw new AppException("Person with ID == " + id + " not found");
+            throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
+                    404,
+                    "The person you requested with id " + id + " was not found in the database",
+                    "Verify the existence of the person with the id " + id + " in the database");
         }
         return person;
     }
@@ -57,7 +76,10 @@ public class PersonServiceImpl implements PersonService {
 
         if (person == null) {
 
-            throw new AppException("Person with phone == " + phone + " not found");
+            throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
+                    404,
+                    "The person you requested with phone " + phone + " was not found in the database",
+                    "Verify the existence of the person with the phone " + phone + " in the database");
         }
 
         return person;
@@ -70,14 +92,27 @@ public class PersonServiceImpl implements PersonService {
 
         if (person == null) {
 
-            throw new AppException("Person with Fio == " + fio + " not found");
+            throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
+                    404,
+                    "The person you requested with fio " + fio + " was not found in the database",
+                    "Verify the existence of the person with the fio " + fio + " in the database");
         }
 
         return person;
     }
 
     @Override
-    public Person update(Person person) {
+    public Person update(Person person) throws AppException {
+
+        Person personById = personRepository.getById(person.getId());
+
+        if (personById == null) {
+
+            throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
+                    404,
+                    "The person you requested with id " + person.getId() + " was not found in the database",
+                    "Verify the existence of the person with the id " + person.getId() + " in the database");
+        }
         return personRepository.save(person);
     }
 

@@ -32,35 +32,19 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public void remove(Integer id) throws AppException {
 
-        if (!phoneRepository.remove(id)) {
-
-            throw new AppException("Can't remove phone with ID == " + id);
-        }
+        phoneRepository.remove(id);
     }
 
     @Override
     public Phone getById(Integer id) throws AppException {
 
-        Phone phone = phoneRepository.getById(id);
-
-        if (phone == null) {
-
-            throw new AppException("Phone with ID == " + id + " not found");
-        }
-        return phone;
+        return phoneRepository.getById(id);
     }
 
     @Override
     public Phone getByNumber(String number) throws AppException {
 
-        Phone phone = phoneRepository.getByNumber(number);
-
-        if (phone == null) {
-
-            throw new AppException("Phone with ID == " + number + " not found");
-        }
-
-        return phone;
+        return phoneRepository.getByNumber(number);
     }
 
 
