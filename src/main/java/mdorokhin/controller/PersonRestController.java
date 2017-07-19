@@ -48,7 +48,8 @@ public class PersonRestController {
     @Produces("application/json")
     public Person getByFio(@PathParam("fio") String fio) throws AppException {
 
-        return personService.getByFio(fio);
+        Person byFio = personService.getByFio(fio);
+        return byFio;
     }
 
     @GET
@@ -56,7 +57,7 @@ public class PersonRestController {
     @Produces("application/json")
     public Person getByPhone(@PathParam("phone") String phone) throws AppException {
 
-        return personService.getByPhoneNumber(phoneService.getByNumber(phone));
+        return personService.getByPhone(phoneService.getByNumber(phone).getId());
     }
 
 

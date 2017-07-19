@@ -27,6 +27,7 @@ public class Phone extends BaseEntity {
     @Column(name = "number", unique = true, nullable = false)
     private String number;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;

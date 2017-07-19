@@ -17,9 +17,9 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = Person.PERSON_GET, query = "SELECT p FROM Person p LEFT JOIN FETCH p.phones WHERE p.id=:id"),
         @NamedQuery(name = Person.PERSON_REMOVE, query = "DELETE FROM Person p WHERE p.id=:id"),
-        @NamedQuery(name = Person.PERSON_BY_FIO, query = "SELECT p FROM Person p WHERE p.fio=:fio"),
-        @NamedQuery(name = Person.PERSON_BY_PHONE, query = "SELECT p FROM Person p WHERE p.id=:phone ORDER BY p.fio"),
-        @NamedQuery(name = Person.PERSON_ALL, query = "SELECT p FROM Person p ORDER BY p.fio"),
+        @NamedQuery(name = Person.PERSON_BY_FIO, query = "SELECT p FROM Person p LEFT JOIN FETCH p.phones WHERE p.fio=:fio"),
+        @NamedQuery(name = Person.PERSON_BY_PHONE, query = "SELECT p FROM Person p LEFT JOIN FETCH p.phones WHERE p.id=:phoneId "),
+        @NamedQuery(name = Person.PERSON_ALL, query = "SELECT distinct p FROM Person p LEFT JOIN FETCH p.phones ORDER BY p.fio"),
 })
 public class Person extends BaseEntity {
 
@@ -33,11 +33,13 @@ public class Person extends BaseEntity {
     private String fio;
 
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @JsonIgnore
+
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "person", fetch = FetchType.LAZY)
     private List<Phone> phones;
 

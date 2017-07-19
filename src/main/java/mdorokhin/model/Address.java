@@ -2,6 +2,7 @@ package mdorokhin.model;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class Address extends BaseEntity {
     @Column(name = "address", nullable = false, unique = true)
     private String address;
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "address", fetch = FetchType.LAZY)
     private List<Person> persons;
 

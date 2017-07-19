@@ -70,9 +70,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person getByPhoneNumber(Phone phone) throws AppException {
+    public Person getByPhone(Integer phone) throws AppException {
 
-        Person person = personRepository.getByPhoneNumber(phone);
+        Person person = personRepository.getByPhone(phone);
 
         if (person == null) {
 

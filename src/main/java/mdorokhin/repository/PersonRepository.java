@@ -17,7 +17,7 @@ public interface PersonRepository {
 
     Person getById(Integer id);
 
-    Person getByPhoneNumber(Phone phone);
+    Person getByPhone(Integer phoneId);
 
     Person getByFio(String fio);
 

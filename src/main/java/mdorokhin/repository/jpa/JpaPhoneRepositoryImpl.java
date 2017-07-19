@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -47,7 +48,13 @@ public class JpaPhoneRepositoryImpl implements PhoneRepository {
 
     @Override
     public Phone getByNumber(String number) {
-        return (Phone) em.createNamedQuery(Phone.GET_BY_NUMBER).setParameter("number", number).getSingleResult();
+
+        try{
+            return (Phone) em.createNamedQuery(Phone.GET_BY_NUMBER).setParameter("number", number).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+
     }
 
     @Override

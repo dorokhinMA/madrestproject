@@ -18,7 +18,7 @@ public interface PersonService {
 
     Person getById(Integer id) throws AppException;
 
-    Person getByPhoneNumber(Phone phone) throws AppException;
+    Person getByPhone(Integer phone) throws AppException;
 
     Person getByFio(String fio) throws AppException;
 

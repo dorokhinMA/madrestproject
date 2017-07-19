@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -43,17 +44,32 @@ public class JpaPersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Person getById(Integer id) {
-        return (Person) em.createNamedQuery(Person.PERSON_GET).setParameter("id", id).getSingleResult();
+
+        try {
+            return (Person) em.createNamedQuery(Person.PERSON_GET).setParameter("id", id).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 
     @Override
-    public Person getByPhoneNumber(Phone phone) {
-        return (Person) em.createNamedQuery(Person.PERSON_BY_PHONE).setParameter("phone", phone).getSingleResult();
+    public Person getByPhone(Integer phoneId) {
+
+        try {
+            return (Person) em.createNamedQuery(Person.PERSON_BY_PHONE).setParameter("phoneId", phoneId).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 
     @Override
     public Person getByFio(String fio) {
-        return (Person) em.createNamedQuery(Person.PERSON_BY_FIO).setParameter("fio", fio).getSingleResult();
+
+        try {
+            return (Person) em.createNamedQuery(Person.PERSON_BY_FIO).setParameter("fio", fio).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 
     @Override
