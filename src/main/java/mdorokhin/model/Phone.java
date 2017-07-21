@@ -2,6 +2,7 @@ package mdorokhin.model;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import javax.persistence.*;
         @NamedQuery(name = Phone.REMOVE, query = "DELETE FROM Phone a WHERE a.id=:id"),
         @NamedQuery(name = Phone.GET_BY_NUMBER, query = "SELECT a FROM Phone a WHERE a.number=:number")
 })
+@JsonIgnoreProperties(value = { "new" })
 public class Phone extends BaseEntity {
 
     public static final String ALL = "Phone.getAll";
@@ -26,6 +28,7 @@ public class Phone extends BaseEntity {
 
     @Column(name = "number", unique = true, nullable = false)
     private String number;
+
 
     @JsonBackReference
     @ManyToOne

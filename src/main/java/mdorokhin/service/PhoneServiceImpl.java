@@ -1,11 +1,13 @@
 package mdorokhin.service;
 
+import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
 import mdorokhin.repository.PhoneRepository;
 import mdorokhin.utils.exeption.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -44,7 +46,16 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public Phone getByNumber(String number) throws AppException {
 
-        return phoneRepository.getByNumber(number);
+        Phone phone = phoneRepository.getByNumber(number);
+
+        if (phone == null) {
+
+            throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
+                    404,
+                    "The person you requested with phone " + phone + " was not found in the database");
+        }
+
+        return phone;
     }
 
 

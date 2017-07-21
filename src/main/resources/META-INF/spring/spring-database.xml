@@ -31,7 +31,10 @@
         <property name="packagesToScan" value="mdorokhin.model"/>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>-->
+
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">50</prop>
                 <prop key="hibernate.jdbc.batch_size">10</prop>
@@ -44,21 +47,21 @@
     </bean>
 
 
-    <context:property-placeholder location="classpath:database/mysql/mysql.properties" system-properties-mode="OVERRIDE"/>
+    <!--<context:property-placeholder location="classpath:database/mysql/mysql.properties" system-properties-mode="OVERRIDE"/>-->
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="${driver}"
-          p:url="${host}"
-          p:username="${user}"
-          p:password="${password}"/>
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+          <!--p:driverClassName="${driver}"-->
+          <!--p:url="${host}"-->
+          <!--p:username="${user}"-->
+          <!--p:password="${password}"/>-->
 
-        <!--<context:property-placeholder location="classpath:database/h2/h2.properties" system-properties-mode="OVERRIDE"/>-->
+        <context:property-placeholder location="classpath:database/h2/h2.properties" system-properties-mode="OVERRIDE"/>
 
-        <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
-        <!--p:driverClassName="${driver}"-->
-        <!--p:url="${host}"-->
-        <!--p:username="${user}"-->
-        <!--p:password="${password}"/>-->
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        p:driverClassName="${driver}"
+        p:url="${host}"
+        p:username="${user}"
+        p:password="${password}"/>
 
 
 

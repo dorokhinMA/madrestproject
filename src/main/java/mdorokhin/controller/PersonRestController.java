@@ -5,15 +5,18 @@ import mdorokhin.service.AddressService;
 import mdorokhin.service.PersonService;
 import mdorokhin.service.PhoneService;
 import mdorokhin.utils.exeption.AppException;
+import mdorokhin.utils.exeption.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
  * @author Maxim Dorokhin
- *         03.07.2017
+ * 03.07.2017
  */
 
 @Path("/person")
@@ -37,34 +40,66 @@ public class PersonRestController {
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    public Person get(@PathParam("id") Integer id) throws AppException {
+    public Response get(@PathParam("id") Integer id) {
 
-        return personService.getById(id);
+        Person person = null;
+
+        try {
+            person = personService.getById(id);
+        } catch (AppException ex) {
+            return Response.status(ex.getStatus())
+                    .entity(new ErrorMessage(ex))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        }
+
+        return Response.ok(person).status(Response.Status.OK).build();
     }
 
 
     @GET
     @Path("fio/{fio}")
     @Produces("application/json")
-    public Person getByFio(@PathParam("fio") String fio) throws AppException {
+    public Response getByFio(@PathParam("fio") String fio) throws AppException {
 
-        Person byFio = personService.getByFio(fio);
-        return byFio;
+        Person person = null;
+
+        try {
+            person = personService.getByFio(fio);
+        } catch (AppException ex) {
+            return Response.status(ex.getStatus())
+                    .entity(new ErrorMessage(ex))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        }
+
+        return Response.ok(person).status(Response.Status.OK).build();
     }
 
     @GET
     @Path("phone/{phone}")
     @Produces("application/json")
-    public Person getByPhone(@PathParam("phone") String phone) throws AppException {
+    public Response getByPhone(@PathParam("phone") String phone) throws AppException {
 
-        return personService.getByPhone(phoneService.getByNumber(phone).getId());
+        Person person = null;
+
+        try {
+            person = personService.getById(phoneService.getByNumber(phone).getPerson().getId());
+        } catch (AppException ex) {
+            return Response.status(ex.getStatus())
+                    .entity(new ErrorMessage(ex))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        }
+
+        return Response.ok(person).status(Response.Status.OK).build();
     }
 
 
     @GET
     @Path("/all")
     @Produces("application/json")
-    public List<Person> getAll(){
+    public List<Person> getAll() {
 
         return personService.getAll();
     }
@@ -74,6 +109,9 @@ public class PersonRestController {
     @Produces("application/json")
     @Consumes("application/json")
     public Person create(Person person) throws AppException {
+
+        System.out.println(person.toString());
+
 
         return personService.save(person);
     }
@@ -93,8 +131,9 @@ public class PersonRestController {
     public Response delete(@PathParam("id") Integer id) throws AppException {
 
         personService.remove(id);
-        return Response.status(200).build();
+        return Response.status(Response.Status.OK).build();
     }
+
 
     public AddressService getAddressService() {
         return addressService;

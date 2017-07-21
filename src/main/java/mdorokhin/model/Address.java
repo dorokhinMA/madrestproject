@@ -1,9 +1,7 @@
 package mdorokhin.model;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.codehaus.jackson.annotate.*;
+import org.codehaus.jackson.map.annotate.JsonView;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.List;
         @NamedQuery(name = Address.ALL, query = "SELECT DISTINCT a FROM Address a LEFT JOIN FETCH a.persons ORDER BY a.address"),
         @NamedQuery(name = Address.REMOVE, query = "DELETE FROM Address a WHERE a.id=:id")
 })
+@JsonIgnoreProperties(value = { "new" })
 public class Address extends BaseEntity {
 
     public static final String ALL = "Address.getAll";
@@ -27,8 +26,9 @@ public class Address extends BaseEntity {
     @Column(name = "address", nullable = false, unique = true)
     private String address;
 
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "address", fetch = FetchType.LAZY)
+
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.LAZY)
     private List<Person> persons;
 
     public Address() {

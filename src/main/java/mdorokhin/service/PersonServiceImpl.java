@@ -31,9 +31,9 @@ public class PersonServiceImpl implements PersonService {
 
         if(personByFio != null){
 
-            throw new AppException(Response.Status.CONFLICT.getStatusCode(), 409, //409
-                    "Person with fio already existing in the database with the id " + person.getId(),
-                    "Please verify that the fio are properly generated");
+            throw new AppException(Response.Status.CONFLICT.getStatusCode(), //409
+                    409,
+                    "Person with fio already existing in the database with the id " + person.getId());
         }
 
         personRepository.save(person);
@@ -49,8 +49,7 @@ public class PersonServiceImpl implements PersonService {
 
             throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
                     404,
-                    "The person you requested with id " + id + " was not found in the database",
-                    "Verify the existence of the person with the id " + id + " in the database");
+                    "The person you requested with id " + id + " was not found in the database");
         }
     }
 
@@ -63,8 +62,7 @@ public class PersonServiceImpl implements PersonService {
 
             throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
                     404,
-                    "The person you requested with id " + id + " was not found in the database",
-                    "Verify the existence of the person with the id " + id + " in the database");
+                    "The person you requested with id " + id + " was not found in the database");
         }
         return person;
     }
@@ -78,8 +76,7 @@ public class PersonServiceImpl implements PersonService {
 
             throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
                     404,
-                    "The person you requested with phone " + phone + " was not found in the database",
-                    "Verify the existence of the person with the phone " + phone + " in the database");
+                    "The person you requested with phone " + phone + " was not found in the database");
         }
 
         return person;
@@ -94,8 +91,7 @@ public class PersonServiceImpl implements PersonService {
 
             throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
                     404,
-                    "The person you requested with fio " + fio + " was not found in the database",
-                    "Verify the existence of the person with the fio " + fio + " in the database");
+                    "The person you requested with fio " + fio + " was not found in the database");
         }
 
         return person;
@@ -110,8 +106,7 @@ public class PersonServiceImpl implements PersonService {
 
             throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
                     404,
-                    "The person you requested with id " + person.getId() + " was not found in the database",
-                    "Verify the existence of the person with the id " + person.getId() + " in the database");
+                    "The person you requested with id " + person.getId() + " was not found in the database");
         }
         return personRepository.save(person);
     }
@@ -120,4 +115,6 @@ public class PersonServiceImpl implements PersonService {
     public List<Person> getAll() {
         return personRepository.getAll();
     }
+
+
 }

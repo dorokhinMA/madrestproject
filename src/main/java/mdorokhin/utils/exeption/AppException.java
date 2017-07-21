@@ -1,24 +1,24 @@
 package mdorokhin.utils.exeption;
 
+import java.io.Serializable;
+
 /**
  * @author Maxim Dorokhin
  *         13.07.2017
  */
-public class AppException extends Exception {
+public class AppException extends Exception implements Serializable {
 
-    private static final long serialVersionUID = -8999932578270387947L;
+    private static final long serialVersionUID = 1L;
 
     private Integer status;
     private int code;
-    private String developerMessage;
 
     public AppException() { }
 
-    public AppException(Integer status, int code, String developerMessage, String message) {
-        super(message);
+    public AppException(Integer status, int code, String detailMessage) {
+        super(detailMessage);
         this.status = status;
         this.code = code;
-        this.developerMessage = developerMessage;
     }
 
     public Integer getStatus() {
@@ -35,13 +35,5 @@ public class AppException extends Exception {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public String getDeveloperMessage() {
-        return developerMessage;
-    }
-
-    public void setDeveloperMessage(String developerMessage) {
-        this.developerMessage = developerMessage;
     }
 }

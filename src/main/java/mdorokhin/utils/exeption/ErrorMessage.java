@@ -1,11 +1,5 @@
 package mdorokhin.utils.exeption;
 
-import com.sun.jersey.api.NotFoundException;
-import org.apache.commons.beanutils.BeanUtils;
-
-import javax.ws.rs.core.Response;
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * @author Maxim Dorokhin
  *         15.07.2017
@@ -15,17 +9,21 @@ public class ErrorMessage {
 
     private int status;
     private int code;
-    private String message;
-    private String link;
+    private String detailMessage;
+
 
     public ErrorMessage() {}
 
-    public ErrorMessage(AppException ex){
-        try {
-            BeanUtils.copyProperties(this, ex);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+    public ErrorMessage(AppException ex) {
+        this.status = ex.getStatus();
+        this.code = ex.getCode();
+        this.detailMessage = ex.getMessage();
+    }
+
+    public ErrorMessage(int status, int code, String detailMessage) {
+        this.status = status;
+        this.code = code;
+        this.detailMessage = detailMessage;
     }
 
     public int getStatus() {
@@ -44,19 +42,11 @@ public class ErrorMessage {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getDetailMessage() {
+        return detailMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
+    public void setDetailMessage(String detailMessage) {
+        this.detailMessage = detailMessage;
     }
 }
