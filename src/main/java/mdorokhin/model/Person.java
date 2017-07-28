@@ -32,13 +32,13 @@ public class Person extends BaseEntity {
     @Column(name = "fio", unique = true)
     private String fio;
 
-    @JsonManagedReference
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "person", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person", fetch = FetchType.LAZY)
     private List<Phone> phones;
 
     public Person() {

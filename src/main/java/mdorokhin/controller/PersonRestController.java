@@ -108,29 +108,55 @@ public class PersonRestController {
     @Path("/add")
     @Produces("application/json")
     @Consumes("application/json")
-    public Person create(Person person) throws AppException {
+    public Response create(Person person) {
 
-        System.out.println(person.toString());
+        Person tmpPerson = null;
 
+        try {
+            tmpPerson = personService.save(person);
+        } catch (AppException ex) {
+            return Response.status(ex.getStatus())
+                    .entity(new ErrorMessage(ex))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        }
 
-        return personService.save(person);
+        return Response.ok(tmpPerson).status(Response.Status.CREATED).build();
     }
 
     @PUT
     @Path("/update")
     @Produces("application/json")
     @Consumes("application/json")
-    public Person update(Person person) throws AppException {
+    public Response update(Person person) throws AppException {
 
-        return personService.update(person);
+        Person tmpPerson = null;
+
+        try {
+            tmpPerson = personService.update(person);
+        } catch (AppException ex) {
+            return Response.status(ex.getStatus())
+                    .entity(new ErrorMessage(ex))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        }
+
+        return Response.ok(tmpPerson).status(Response.Status.ACCEPTED).build();
 
     }
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Integer id) throws AppException {
+    public Response delete(@PathParam("id") Integer id) {
 
-        personService.remove(id);
+        try {
+            personService.remove(id);
+        } catch (AppException ex) {
+            return Response.status(ex.getStatus())
+                    .entity(new ErrorMessage(ex))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        }
         return Response.status(Response.Status.OK).build();
     }
 

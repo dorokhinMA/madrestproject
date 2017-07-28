@@ -51,7 +51,7 @@ public class Main {
 
         Person byId = jpaPersonRepositoryImpl.getById(2);
 
-
+        System.out.println(byId.getAddress());
 
 
     }
