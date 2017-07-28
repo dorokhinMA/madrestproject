@@ -42,7 +42,7 @@ public class PersonRestController {
     @Produces("application/json")
     public Response get(@PathParam("id") Integer id) {
 
-        Person person = null;
+        Person person;
 
         try {
             person = personService.getById(id);
@@ -62,7 +62,7 @@ public class PersonRestController {
     @Produces("application/json")
     public Response getByFio(@PathParam("fio") String fio) throws AppException {
 
-        Person person = null;
+        Person person;
 
         try {
             person = personService.getByFio(fio);
@@ -81,7 +81,7 @@ public class PersonRestController {
     @Produces("application/json")
     public Response getByPhone(@PathParam("phone") String phone) throws AppException {
 
-        Person person = null;
+        Person person;
 
         try {
             person = personService.getById(phoneService.getByNumber(phone).getPerson().getId());
@@ -110,7 +110,7 @@ public class PersonRestController {
     @Consumes("application/json")
     public Response create(Person person) {
 
-        Person tmpPerson = null;
+        Person tmpPerson;
 
         try {
             tmpPerson = personService.save(person);
@@ -130,7 +130,7 @@ public class PersonRestController {
     @Consumes("application/json")
     public Response update(Person person) throws AppException {
 
-        Person tmpPerson = null;
+        Person tmpPerson;
 
         try {
             tmpPerson = personService.update(person);
