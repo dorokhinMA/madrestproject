@@ -4,6 +4,7 @@ import mdorokhin.model.Address;
 import mdorokhin.model.Person;
 import mdorokhin.model.Phone;
 import mdorokhin.repository.PersonRepository;
+import org.hibernate.JDBCException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,13 @@ public class JpaPersonRepositoryImpl implements PersonRepository {
     @Override
     @Transactional
     public boolean remove(Integer id) {
-        return em.createNamedQuery(Person.PERSON_REMOVE).setParameter("id", id).executeUpdate() != 0;
+
+        try {
+            return em.createNamedQuery(Person.PERSON_REMOVE).setParameter("id", id).executeUpdate() != 0;
+        } catch (JDBCException e){
+            return false;
+        }
+
     }
 
     @Override

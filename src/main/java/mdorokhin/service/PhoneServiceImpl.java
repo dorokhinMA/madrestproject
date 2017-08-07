@@ -52,7 +52,7 @@ public class PhoneServiceImpl implements PhoneService {
 
             throw new AppException(Response.Status.NOT_FOUND.getStatusCode(), //404
                     404,
-                    "The person you requested with phone " + phone + " was not found in the database");
+                    "The person you requested with phone " + number + " was not found in the database");
         }
 
         return phone;

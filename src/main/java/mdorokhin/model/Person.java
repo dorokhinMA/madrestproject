@@ -29,7 +29,7 @@ public class Person extends BaseEntity {
     public static final String PERSON_BY_PHONE = "Person.byPhone";
     public static final String PERSON_ALL = "Person.getAll";
 
-    @Column(name = "fio", unique = true)
+    @Column(name = "fio", unique = true, nullable = false)
     private String fio;
 
     @JsonBackReference

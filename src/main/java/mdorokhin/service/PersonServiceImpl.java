@@ -31,7 +31,7 @@ public class PersonServiceImpl implements PersonService {
 
             throw new AppException(Response.Status.CONFLICT.getStatusCode(), //409
                     409,
-                    "Person with fio " + person.getId() + " already existing in the database");
+                    "Person with fio " + personByFio.getFio() + " already existing in the database");
         }
 
         personRepository.save(person);

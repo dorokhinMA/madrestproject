@@ -23,7 +23,7 @@ public class Address extends BaseEntity {
     public static final String ALL = "Address.getAll";
     public static final String REMOVE = "Address.remove";
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
 
 
