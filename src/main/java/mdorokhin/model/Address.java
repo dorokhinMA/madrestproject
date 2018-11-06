@@ -1,8 +1,6 @@
 package mdorokhin.model;
 
 import org.codehaus.jackson.annotate.*;
-import org.codehaus.jackson.map.annotate.JsonView;
-
 import javax.persistence.*;
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package mdorokhin.repository.jpa;
 
-import mdorokhin.model.Address;
 import mdorokhin.model.Person;
-import mdorokhin.model.Phone;
 import mdorokhin.repository.PersonRepository;
 import org.hibernate.JDBCException;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,6 @@
 package mdorokhin.service;
 
 import mdorokhin.model.Person;
-import mdorokhin.model.Phone;
 import mdorokhin.utils.exeption.AppException;
 
 import java.util.List;

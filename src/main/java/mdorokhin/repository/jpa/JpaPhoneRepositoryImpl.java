@@ -1,6 +1,5 @@
 package mdorokhin.repository.jpa;
 
-import mdorokhin.model.Address;
 import mdorokhin.model.Phone;
 import mdorokhin.repository.PhoneRepository;
 import org.springframework.stereotype.Repository;
